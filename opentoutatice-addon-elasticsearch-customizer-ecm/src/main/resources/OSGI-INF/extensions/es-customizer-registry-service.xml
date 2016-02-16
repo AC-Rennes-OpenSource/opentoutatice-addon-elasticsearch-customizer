@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<component
+	name="fr.toutatice.ecm.es.customizer.registry.JsonESWritersServiceRegistry"
+	version="1.0">
+
+	<implementation
+		class="fr.toutatice.ecm.es.customizer.registry.JsonESWritersServiceRegistry" />
+
+	<service>
+		<provide
+			interface="fr.toutatice.ecm.es.customizer.registry.JsonESWritersServiceRegistry" />
+	</service>
+
+	<extension-point name="writers">
+		<object
+			class="fr.toutatice.ecm.es.customizer.registry.JsonESWriterDescriptor" />
+	</extension-point>
+
+</component>

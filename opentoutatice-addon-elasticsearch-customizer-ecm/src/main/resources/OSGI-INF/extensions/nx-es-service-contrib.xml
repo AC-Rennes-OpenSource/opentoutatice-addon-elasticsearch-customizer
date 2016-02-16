@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<component name="fr.toutatice.ecm.es.customizer.writers"
+	version="1.0">
+
+	<require>org.nuxeo.elasticsearch.ElasticSearchComponent.contrib</require>
+
+	<extension target="org.nuxeo.elasticsearch.ElasticSearchComponent"
+		point="elasticSearchDocWriter">
+		
+		<writer
+			class="fr.toutatice.ecm.es.customizer.nx.writer.JsonESDocumentWriterCustomizer" />
+			
+	</extension>
+
+</component>
