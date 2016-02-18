@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.toutatice.ecm.es.denormalization.writers;
+package fr.toutatice.ecm.es.customizer.writers.denormalization;
 
 import java.io.IOException;
 import java.util.LinkedHashSet;

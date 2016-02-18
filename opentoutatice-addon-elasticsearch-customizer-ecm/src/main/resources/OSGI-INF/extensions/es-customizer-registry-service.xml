@@ -1,20 +1,25 @@
 <?xml version="1.0"?>
 
 <component
-	name="fr.toutatice.ecm.es.customizer.registry.JsonESWritersServiceRegistry"
+	name="fr.toutatice.ecm.es.customizer.registry.ESCustomizersServiceRegistry"
 	version="1.0">
 
 	<implementation
-		class="fr.toutatice.ecm.es.customizer.registry.JsonESWritersServiceRegistry" />
+		class="fr.toutatice.ecm.es.customizer.registry.ESCustomizersServiceRegistry" />
 
 	<service>
 		<provide
-			interface="fr.toutatice.ecm.es.customizer.registry.JsonESWritersServiceRegistry" />
+			interface="fr.toutatice.ecm.es.customizer.registry.ESCustomizersServiceRegistry" />
 	</service>
 
 	<extension-point name="writers">
 		<object
 			class="fr.toutatice.ecm.es.customizer.registry.JsonESWriterDescriptor" />
 	</extension-point>
+	
+	<extension-point name="listeners">
+        <object
+            class="fr.toutatice.ecm.es.customizer.registry.ESListenerDescriptor" />
+    </extension-point>
 
 </component>

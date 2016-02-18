@@ -4,8 +4,10 @@
 package fr.toutatice.ecm.es.customizer.nx.writer;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 
+import javax.servlet.ServletRequest;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.ext.Provider;
@@ -14,9 +16,15 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonGenerator;
 import org.nuxeo.ecm.automation.jaxrs.io.documents.JsonESDocumentWriter;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.model.DocumentPart;
+import org.nuxeo.ecm.core.api.model.Property;
+import org.nuxeo.ecm.core.api.model.PropertyException;
+import org.nuxeo.ecm.core.api.model.impl.ComplexProperty;
+import org.nuxeo.ecm.core.api.model.impl.primitives.BlobProperty;
+import org.nuxeo.ecm.core.schema.types.Schema;
 import org.nuxeo.runtime.api.Framework;
 
-import fr.toutatice.ecm.es.customizer.registry.JsonESWritersServiceRegistry;
+import fr.toutatice.ecm.es.customizer.registry.ESCustomizersServiceRegistry;
 import fr.toutatice.ecm.es.customizer.writers.ICustomJsonESWriter;
 
 /**
@@ -27,14 +35,20 @@ import fr.toutatice.ecm.es.customizer.writers.ICustomJsonESWriter;
 @Produces({ JsonESDocumentWriter.MIME_TYPE })
 public class JsonESDocumentWriterCustomizer extends JsonESDocumentWriter {
 
-	private static JsonESWritersServiceRegistry registry;
-
-	public static JsonESWritersServiceRegistry getJsonESWritersServiceRegistry() {
-		if (registry == null) {
-			registry = Framework.getService(JsonESWritersServiceRegistry.class);
-		}
-		return registry;
-	}
+    /**
+     * Registry of customizers.
+     */
+    private static ESCustomizersServiceRegistry registry;
+    
+    /**
+     * @return registry of customizers.
+     */
+    public static ESCustomizersServiceRegistry getESCustomizersServiceRegistry() {
+        if (registry == null) {
+            registry = Framework.getService(ESCustomizersServiceRegistry.class);
+        }
+        return registry;
+    }
 
 	/**
 	 * Default (i.e. not custom) writing doc.
@@ -67,10 +81,19 @@ public class JsonESDocumentWriterCustomizer extends JsonESDocumentWriter {
 		jg.flush();
 	}
 
+    /**
+	 * Writes custom metadata.
+	 * 
+	 * @param jg
+	 * @param doc
+	 * @param schemas
+	 * @param contextParameters
+	 * @throws IOException
+	 */
 	protected void writeData(JsonGenerator jg, DocumentModel doc,
 			String[] schemas, Map<String, String> contextParameters)
 			throws IOException {
-		for (ICustomJsonESWriter customJsonESWriter : getJsonESWritersServiceRegistry()
+		for (ICustomJsonESWriter customJsonESWriter : getESCustomizersServiceRegistry()
 				.getCustomJsonESWriters()) {
 			customJsonESWriter.setJsonESWriter(this);
 			customJsonESWriter.writeData(jg, doc, schemas, contextParameters);

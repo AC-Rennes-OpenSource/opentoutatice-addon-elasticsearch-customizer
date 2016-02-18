@@ -11,13 +11,14 @@ import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
 
+import fr.toutatice.ecm.es.customizer.listeners.ICustomESListener;
 import fr.toutatice.ecm.es.customizer.writers.ICustomJsonESWriter;
 
 
 /**
  * @author david
  */
-public class JsonESWritersServiceRegistry extends DefaultComponent {
+public class ESCustomizersServiceRegistry extends DefaultComponent {
 	
 	/**
 	 * Custom ES writer point.
@@ -25,9 +26,19 @@ public class JsonESWritersServiceRegistry extends DefaultComponent {
 	private static String WRITERS_EXT_POINT = "writers";
 	
 	/**
+	 * Custom ES listener point.
+	 */
+	private static String LISTENERS_EXT_POINT = "listeners";
+	
+	/**
 	 * Custom writers.
 	 */
 	private List<ICustomJsonESWriter> writers;
+	
+	/**
+	 * Custom listeners.
+	 */
+	private List<ICustomESListener> listeners;
 	
 	/**
 	 * @return registered custom ES writers.
@@ -36,10 +47,18 @@ public class JsonESWritersServiceRegistry extends DefaultComponent {
 		return this.writers;
 	}
 	
-	@Override
+    /**
+     * @return the listeners
+     */
+    public List<ICustomESListener> getCustomESListeners() {
+        return listeners;
+    }
+
+    @Override
     public void activate(ComponentContext context) throws Exception {
         super.activate(context);
         writers = new LinkedList<ICustomJsonESWriter>();
+        listeners = new LinkedList<ICustomESListener>();
     }
 	
 	@Override
@@ -55,6 +74,14 @@ public class JsonESWritersServiceRegistry extends DefaultComponent {
 				int order = desc.getOrder();
 				writers.add(order, clazzInstance);
 			}
+		} else if(LISTENERS_EXT_POINT.equals(extensionPoint)) {
+		    ESListenerDescriptor desc = (ESListenerDescriptor) contribution;
+		    if(desc.isEnabled()){
+		        String className = desc.getClazz();
+		        ICustomESListener clazzInstance = (ICustomESListener) Class.forName(className).newInstance();
+		        int order = desc.getOrder();
+		        listeners.add(order, clazzInstance);
+		    }
 		}
 		
 	}
