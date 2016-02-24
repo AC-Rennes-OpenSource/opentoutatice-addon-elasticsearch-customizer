@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>opentoutatice-ecm.elasticsearch-customizer</groupId>
+	<artifactId>opentoutatice-addon-elasticsearch-customizer-ecm</artifactId>
+	<version>1.0-RC01</version>
+	<name>elasticsearch customizer plugin</name>
+	<description>
+    </description>
+
+
+	<properties>
+		<nuxeo.version>6.0-HF21</nuxeo.version>
+		<nuxeo.opentoutatice.addon.es.version>1.2</nuxeo.opentoutatice.addon.es.version>
+		<ottc.version>3.2.2-RC01</ottc.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>opentoutatice-ecm.platform</groupId>
+			<artifactId>opentoutatice-ecm-platform-core</artifactId>
+			<version>${ottc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>opentoutatice-ecm.elasticsearch</groupId>
+			<artifactId>opentoutatice-addon-elasticsearch-ecm</artifactId>
+			<version>${nuxeo.opentoutatice.addon.es.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<additionalProjectnatures>
+						<projectnature>org.nuxeo.ide.NuxeoNature</projectnature>
+					</additionalProjectnatures>
+					<classpathContainers>
+						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+						<classpathContainer>org.nuxeo.ide.SDK_CONTAINER</classpathContainer>
+						<classpathContainer>org.nuxeo.ide.SDK_TEST_CONTAINER</classpathContainer>
+						<classpathContainer>org.nuxeo.ide.SDK_USERLIB_CONTAINER</classpathContainer>
+					</classpathContainers>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-resource</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>add-resource</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>src/main/resources</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<archive>
+						<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+						<manifestEntries>
+							<Bundle-Version>${eclipseVersion}-t${buildNumber}</Bundle-Version>
+							<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>
