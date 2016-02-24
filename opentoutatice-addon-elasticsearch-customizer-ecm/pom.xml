@@ -4,7 +4,7 @@
 
 	<groupId>opentoutatice-ecm.elasticsearch</groupId>
 	<artifactId>opentoutatice-addon-elasticsearch-customizer-ecm</artifactId>
-	<version>1.0-RC01</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>elasticsearch customizer plugin</name>
 	<description>
     </description>
