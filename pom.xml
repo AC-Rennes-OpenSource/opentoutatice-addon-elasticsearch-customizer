@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>opentoutatice-ecm.elasticsearch</groupId>
+	<groupId>opentoutatice-ecm.elasticsearch-customizer</groupId>
 	<artifactId>opentoutatice-elasticsearch-customizer-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>elasticsearch customizer plugin - parent</name>
