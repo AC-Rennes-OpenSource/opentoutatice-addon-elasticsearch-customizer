@@ -36,7 +36,7 @@ public abstract class DenormalizationESListener implements ICustomESListener {
      * @param sourceDocument
      * @return true if sourceDocument is linked with a document to re-index.
      */
-    protected abstract boolean needToReIndex(DocumentModel sourceDocument);
+    protected abstract boolean needToReIndex(DocumentModel sourceDocument, String eventId);
 
     /**
      * {@inheritDoc}
@@ -44,7 +44,7 @@ public abstract class DenormalizationESListener implements ICustomESListener {
     @Override
     public void customStackCommands(DocumentEventContext docCtx, String eventId) {
         DocumentModel sourceDocument = docCtx.getSourceDocument();
-        if (needToReIndex(sourceDocument)) {
+        if (needToReIndex(sourceDocument, eventId)) {
             CoreSession session = sourceDocument.getCoreSession();
             stackCommands(session, sourceDocument, eventId);
         }

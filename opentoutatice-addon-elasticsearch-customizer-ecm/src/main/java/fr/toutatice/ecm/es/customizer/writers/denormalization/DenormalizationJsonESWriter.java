@@ -69,7 +69,6 @@ public abstract class DenormalizationJsonESWriter implements ICustomJsonESWriter
 	}
 	
 	/**
-	 * 
 	 * @param doc current doc in indexing process.
 	 * @return true if doc must be denormalize.
 	 */
@@ -77,9 +76,9 @@ public abstract class DenormalizationJsonESWriter implements ICustomJsonESWriter
 		if(doc == null){
 			return false;
 		}
-		boolean isNotDelected = !doc.getLifeCyclePolicy().equalsIgnoreCase(LifeCycleConstants.DELETED_STATE);
+		boolean isNotDeleted = !doc.getLifeCyclePolicy().equalsIgnoreCase(LifeCycleConstants.DELETED_STATE);
 		boolean isNotVersion = !doc.isVersion();
-		return isNotDelected && isNotVersion && getDocsToDenormalize().contains(doc.getType());
+		return isNotDeleted && isNotVersion && getDocsToDenormalize().contains(doc.getType());
 	}
 	
 	@Override
