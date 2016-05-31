@@ -12,13 +12,45 @@
 
 	<properties>
 		<nuxeo.version>6.0-HF21</nuxeo.version>
-		<nuxeo.opentoutatice.version>3.2.2-RC01</nuxeo.opentoutatice.version>
+		<nuxeo.cap.distribution.version>6.0</nuxeo.cap.distribution.version>
+		<ottc.version>3.2.2</ottc.version>
+		<ottc.addon.es.version>1.2</ottc.addon.es.version>
 	</properties>
 
 	<modules>
 	   <module>opentoutatice-addon-elasticsearch-customizer-ecm</module>
 	   <module>opentoutatice-addon-elasticsearch-customizer-marketplace</module> 
 	</modules>
+	
+	<dependencyManagement>
+		<dependencies>
+		    <dependency>
+                <groupId>org.nuxeo.ecm.distribution</groupId>
+                <artifactId>nuxeo-distribution</artifactId>
+                <version>${nuxeo.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.nuxeo.ecm.distribution</groupId>
+                <artifactId>nuxeo-distribution-cap</artifactId>
+                <version>${nuxeo.cap.distribution.version}</version>
+                <type>pom</type>
+            </dependency>
+            
+			<dependency>
+				<groupId>opentoutatice-ecm.platform</groupId>
+				<artifactId>opentoutatice-ecm-platform-core</artifactId>
+				<version>${ottc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>opentoutatice-ecm.elasticsearch</groupId>
+				<artifactId>opentoutatice-addon-elasticsearch-ecm</artifactId>
+				<version>${ottc.addon.es.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>

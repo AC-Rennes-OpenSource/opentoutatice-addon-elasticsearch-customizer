@@ -2,7 +2,7 @@
 <package type="addon" name="open-toutatice-addons-elasticsearch-customizer" version="@VERSION@">
 	<title>Addon to customize ElasticSearch flux for indexation</title>
 	<description>
-		<p>Allows to customize flux for indexation</p>
+		<p>Allows to customize ES flux for indexation</p>
 	</description>
 	<home-page>http://www.toutatice.fr</home-page>
 	<vendor>Academie de Rennes</vendor>
@@ -18,7 +18,7 @@
 	</platforms>
 	<dependencies>
 		<!-- Dependance sur la plate-forme opentoutatice -->
-		<package>open-toutatice:3.2.2-RC01</package>
+		<package>open-toutatice:3.2.2</package>
 	</dependencies>
 	<license>LGPL 2.1</license>
 	<license-url>http://www.gnu.org/licenses/lgpl-2.1.html</license-url>
