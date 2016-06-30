@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.toutatice.ecm.es.customizer.writers;
+package fr.toutatice.ecm.es.customizer.writers.api;
 
 import java.io.IOException;
 import java.util.Map;
@@ -21,7 +21,23 @@ public interface ICustomJsonESWriter {
 	 * Setter of native Nx Json ES Writer.
 	 * @param nxJsonESWriter
 	 */
-	public void setJsonESWriter(JsonESDocumentWriterCustomizer jsonESWriter);
+	void setJsonESWriter(JsonESDocumentWriterCustomizer jsonESWriter);
+	
+	 /**
+     * Set current session (system if asynchronous session,
+     * user session if synchronous session).
+     * 
+     * @param doc
+     */
+    void setCurrentSession(DocumentModel doc);
+	
+	/**
+	 * Check if given doc must be cutomize in Json flux.
+	 * 
+	 * @param doc
+	 * @return true if cutomize.
+	 */
+	boolean accept(DocumentModel doc);
 	
 	/**
 	 * Method to add custom data in ES Json flux.

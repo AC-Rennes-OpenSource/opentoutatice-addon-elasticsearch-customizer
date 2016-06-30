@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.toutatice.ecm.es.customizer.listeners;
+package fr.toutatice.ecm.es.customizer.listeners.api;
 
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 

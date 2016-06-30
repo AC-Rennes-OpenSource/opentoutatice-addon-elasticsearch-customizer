@@ -16,7 +16,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.runtime.api.Framework;
 
 import fr.toutatice.ecm.es.customizer.registry.ESCustomizersServiceRegistry;
-import fr.toutatice.ecm.es.customizer.writers.ICustomJsonESWriter;
+import fr.toutatice.ecm.es.customizer.writers.api.ICustomJsonESWriter;
 
 /**
  * @author david
@@ -87,7 +87,10 @@ public class JsonESDocumentWriterCustomizer extends JsonESDocumentWriter {
 		for (ICustomJsonESWriter customJsonESWriter : getESCustomizersServiceRegistry()
 				.getCustomJsonESWriters()) {
 			customJsonESWriter.setJsonESWriter(this);
-			customJsonESWriter.writeData(jg, doc, schemas, contextParameters);
+			if(customJsonESWriter.accept(doc)){
+			    customJsonESWriter.setCurrentSession(doc);
+			    customJsonESWriter.writeData(jg, doc, schemas, contextParameters);
+			}
 		}
 	}
 

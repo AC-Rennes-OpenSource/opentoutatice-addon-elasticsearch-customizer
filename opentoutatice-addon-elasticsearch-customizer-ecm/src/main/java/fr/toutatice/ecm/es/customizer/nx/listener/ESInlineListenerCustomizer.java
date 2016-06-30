@@ -12,7 +12,7 @@ import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.elasticsearch.listener.ElasticSearchInlineListener;
 import org.nuxeo.runtime.api.Framework;
 
-import fr.toutatice.ecm.es.customizer.listeners.ICustomESListener;
+import fr.toutatice.ecm.es.customizer.listeners.api.ICustomESListener;
 import fr.toutatice.ecm.es.customizer.registry.ESCustomizersServiceRegistry;
 
 

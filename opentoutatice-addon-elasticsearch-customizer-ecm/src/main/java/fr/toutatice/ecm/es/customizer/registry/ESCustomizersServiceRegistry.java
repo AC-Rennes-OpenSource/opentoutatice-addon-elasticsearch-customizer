@@ -11,8 +11,8 @@ import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
 
-import fr.toutatice.ecm.es.customizer.listeners.ICustomESListener;
-import fr.toutatice.ecm.es.customizer.writers.ICustomJsonESWriter;
+import fr.toutatice.ecm.es.customizer.listeners.api.ICustomESListener;
+import fr.toutatice.ecm.es.customizer.writers.api.ICustomJsonESWriter;
 
 
 /**
