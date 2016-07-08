@@ -4,6 +4,7 @@
 package fr.toutatice.ecm.es.customizer.writers.denormalization;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonGenerator;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -23,73 +25,93 @@ import fr.toutatice.ecm.es.customizer.writers.api.AbstractCustomJsonESWriter;
  *
  */
 public abstract class AbstractDenormalizationJsonESWriter extends AbstractCustomJsonESWriter {
-	
-	/** Denormalization infos. */
-	protected Map<String, Object> denormalizationInfos;
+    
+    /** First denormalization key for contextParameters map. */
+    private static final String FIRST_CALL_KEY = "d_first_call";
+    /** First call contextParameters map. */
+    private static final String FIRST_CALL_TRUE = "dfc_TRUE";
+    /** First call contextParameters map. */
+    private static final String FIRST_CALL_FALSE = "dfc_FALSE";
+    
+    /** Caller key for contextParameters map. */
+    private static final String INITIAL_CALLER_KEY = "d_initial_caller";
 	
 	/**
 	 * Default constructor.
 	 */
 	public AbstractDenormalizationJsonESWriter(){
 	    super();
-	    initializeDenormalizationInfos();
 	};
-	
-	/**
-	 * To set the denormalizationInfos attribute (Map<String, Object>)
-	 * used in default constructor.
-	 */
-	public abstract void initializeDenormalizationInfos();
-	
-	/**
-	 * Gets linked documents to document to denormalize.
-	 * 
-	 * @param docToDenormalize
-	 * @return linked documents.
-	 */
-	public Object getLinkedInfosDocs(String docToDenormalize){
-	    Object linkedInfosDocs = this.denormalizationInfos.get(docToDenormalize);
-	    return linkedInfosDocs != null ? linkedInfosDocs : new Object();
-	}
-	
-	/**
-	 * @return documents to denormalize (null safe).
-	 */
-	public List<String> getDocsToDenormalize(){
-		Set<String> docs = this.denormalizationInfos.keySet();
-		docs = docs == null ? new LinkedHashSet<String>(0) : docs;
-		return new LinkedList<String>(docs);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean accept(DocumentModel doc){
-	    return getDocsToDenormalize().contains(doc.getType());
-	}
 	
 	/**
 	 * @param doc current doc in indexing process.
 	 * @return true if doc must be denormalize.
 	 */
-	protected boolean hasToDenormalize(DocumentModel doc){
+	// FIXME: set isNotDeleted and isNotVersion as params (nuxeo.conf?)
+	protected boolean hasToDenormalize(DocumentModel doc, Map<String, String> contextParameters){
 		if(doc == null){
 			return false;
 		}
+		
+		// Case of mutual denormalization and denormalizeDoc call json.wrtieESDoc
+		boolean callItSelf = false;
+		if(contextParameters != null){
+		    callItSelf = StringUtils.equals(contextParameters.get(INITIAL_CALLER_KEY), doc.getType());
+		}
+		
+		// Default rules
 		boolean isNotDeleted = !doc.getLifeCyclePolicy().equalsIgnoreCase(LifeCycleConstants.DELETED_STATE);
 		boolean isNotVersion = !doc.isVersion();
-		return isNotDeleted && isNotVersion && accept(doc);
+		boolean hasToDenormalize = isNotDeleted && isNotVersion && accept(doc);
+		
+		return hasToDenormalize && !callItSelf;
 	}
 	
 	@Override
 	public void writeData(JsonGenerator jg, DocumentModel doc, String[] schemas,
             Map<String, String> contextParameters) throws IOException {
-		if(hasToDenormalize(doc)){
+		if(hasToDenormalize(doc, contextParameters)){
+		    contextParameters = setCaller(doc, contextParameters);
 			denormalizeDoc(jg, doc, schemas, contextParameters);
 		}
+		clearCaller(contextParameters);
 	}
 	
+    /**
+	 * Set doc as caller of denormalization.
+	 * 
+	 * @param doc
+	 * @param contextParameters
+	 */
+	// for case of mutual denormalization and denormalizeDoc call json.wrtieESDoc 
+	// (which call custom write method).
+	private Map<String, String> setCaller(DocumentModel doc, Map<String, String> contextParameters) {
+	    
+	    if(contextParameters == null){
+	        contextParameters = new HashMap<String, String>(2);
+	        contextParameters.put(FIRST_CALL_KEY, FIRST_CALL_TRUE);
+    	} 
+	    
+	    if(StringUtils.equals(FIRST_CALL_TRUE, contextParameters.get(FIRST_CALL_KEY))){
+	        contextParameters.put(INITIAL_CALLER_KEY, doc.getType());
+	    }
+	    
+        contextParameters.put(FIRST_CALL_KEY, FIRST_CALL_FALSE);
+        
+        return contextParameters;
+    }
+	
 	/**
+	 * Clear caller of denormalization.
+	 * 
+	 * @param contextParameters
+	 */
+	private void clearCaller(Map<String, String> contextParameters) {
+	    contextParameters.remove(INITIAL_CALLER_KEY);
+	    contextParameters.put(FIRST_CALL_KEY, FIRST_CALL_TRUE);
+	}
+
+    /**
 	 * Denormalize given doc. 
 	 * @param doc doc to denormalize.
 	 */
