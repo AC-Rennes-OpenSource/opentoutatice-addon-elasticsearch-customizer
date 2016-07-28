@@ -14,7 +14,7 @@
 		<nuxeo.version>6.0-HF30</nuxeo.version>
 		<nuxeo.cap.distribution.version>6.0</nuxeo.cap.distribution.version>
 		<ottc.version>3.4.0-SNAPSHOT</ottc.version>
-		<ottc.addon.es.version>1.3-SNAPSHOT</ottc.addon.es.version>
+		<!-- <ottc.addon.es.version>1.3-SNAPSHOT</ottc.addon.es.version>  -->
 	</properties>
 
 	<modules>
@@ -44,11 +44,13 @@
 				<artifactId>opentoutatice-ecm-platform-core</artifactId>
 				<version>${ottc.version}</version>
 			</dependency>
+			<!-- 
 			<dependency>
 				<groupId>opentoutatice-ecm.elasticsearch</groupId>
 				<artifactId>opentoutatice-addon-elasticsearch-ecm</artifactId>
 				<version>${ottc.addon.es.version}</version>
 			</dependency>
+			 -->
 		</dependencies>
 	</dependencyManagement>
 

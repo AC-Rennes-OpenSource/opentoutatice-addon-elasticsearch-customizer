@@ -17,10 +17,12 @@
 			<groupId>opentoutatice-ecm.platform</groupId>
 			<artifactId>opentoutatice-ecm-platform-core</artifactId>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>opentoutatice-ecm.elasticsearch</groupId>
 			<artifactId>opentoutatice-addon-elasticsearch-ecm</artifactId>
 		</dependency>
+		 -->
 	</dependencies>
 
 	<build>
