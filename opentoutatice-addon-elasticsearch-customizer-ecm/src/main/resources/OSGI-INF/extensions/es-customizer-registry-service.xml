@@ -3,6 +3,8 @@
 <component
 	name="fr.toutatice.ecm.es.customizer.registry.ESCustomizersServiceRegistry"
 	version="1.0">
+	
+	<require>fr.toutatice.ecm.es.customizer.listener.writer</require>
 
 	<implementation
 		class="fr.toutatice.ecm.es.customizer.registry.ESCustomizersServiceRegistry" />

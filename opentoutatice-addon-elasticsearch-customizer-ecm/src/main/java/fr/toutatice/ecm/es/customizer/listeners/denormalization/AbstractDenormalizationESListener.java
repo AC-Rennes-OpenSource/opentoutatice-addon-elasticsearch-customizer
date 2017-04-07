@@ -17,19 +17,27 @@ import fr.toutatice.ecm.es.customizer.nx.listener.ESInlineListenerCustomizer;
  */
 public abstract class AbstractDenormalizationESListener implements ICustomESListener {
     
-    public ESInlineListenerCustomizer esListener;
+    private ESInlineListenerCustomizer esInlineListener;
     
     /**
      * Default constructor.
      */
     public AbstractDenormalizationESListener(){};
 
+
+    /**
+     * @return the esListener
+     */
+    public ESInlineListenerCustomizer getEsInlineListener() {
+        return esInlineListener;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void setESInlineListener(ESInlineListenerCustomizer esListener) {
-        this.esListener = esListener;
+        this.esInlineListener = esListener;
     }
     
     /**

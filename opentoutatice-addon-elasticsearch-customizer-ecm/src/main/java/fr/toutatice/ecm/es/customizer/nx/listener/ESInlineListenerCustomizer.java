@@ -9,6 +9,7 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
+import org.nuxeo.elasticsearch.commands.IndexingCommands;
 import org.nuxeo.elasticsearch.listener.ElasticSearchInlineListener;
 import org.nuxeo.runtime.api.Framework;
 
@@ -67,4 +68,11 @@ public class ESInlineListenerCustomizer extends ElasticSearchInlineListener {
         super.stackCommand(doc, eventId, sync);
     }
     
+    /*
+     * To be visible in custom listeners.
+     */
+    public IndexingCommands getOrCreateCommands(DocumentModel doc) {
+        return super.getOrCreateCommands(doc);
+    }
+
 }
