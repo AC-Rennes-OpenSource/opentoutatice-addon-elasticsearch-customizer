@@ -5,16 +5,10 @@ package fr.toutatice.ecm.es.customizer.writers.denormalization;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonGenerator;
-import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.LifeCycleConstants;
 
@@ -107,8 +101,10 @@ public abstract class AbstractDenormalizationJsonESWriter extends AbstractCustom
 	 * @param contextParameters
 	 */
 	private void clearCaller(Map<String, String> contextParameters) {
-	    contextParameters.remove(INITIAL_CALLER_KEY);
-	    contextParameters.put(FIRST_CALL_KEY, FIRST_CALL_TRUE);
+        if (contextParameters != null) {
+            contextParameters.remove(INITIAL_CALLER_KEY);
+            contextParameters.put(FIRST_CALL_KEY, FIRST_CALL_TRUE);
+        }
 	}
 
     /**
