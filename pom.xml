@@ -37,10 +37,6 @@
 				<version>${nuxeo.opentoutatice.version}</version>
 			</dependency>
 
-			<dependency>
-				<groupId>opentoutatice-ecm.platform</groupId>
-				<artifactId>opentoutatice-ecm-platform-core</artifactId>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
