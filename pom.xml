@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -11,37 +12,34 @@
 	<version>4.6-SNAPSHOT</version>
 
 	<properties>
-		<nuxeo.version>6.0-HF34</nuxeo.version>
-		<nuxeo.cap.distribution.version>6.0</nuxeo.cap.distribution.version>
-		<ottc.version>4.6-SNAPSHOT</ottc.version>
+		<nuxeo.version>6.0-HF37</nuxeo.version>
+		<nuxeo.cap.version>6.0</nuxeo.cap.version>
+		<nuxeo.opentoutatice.version>4.6-SNAPSHOT</nuxeo.opentoutatice.version>
 	</properties>
 
 	<modules>
-	   <module>opentoutatice-addon-elasticsearch-customizer-ecm</module>
-	   <module>opentoutatice-addon-elasticsearch-customizer-marketplace</module> 
+		<module>opentoutatice-addon-elasticsearch-customizer-ecm</module>
+		<module>opentoutatice-addon-elasticsearch-customizer-marketplace</module>
 	</modules>
-	
+
 	<dependencyManagement>
 		<dependencies>
-		    <dependency>
-                <groupId>org.nuxeo.ecm.distribution</groupId>
-                <artifactId>nuxeo-distribution</artifactId>
-                <version>${nuxeo.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+			<dependency>
+				<groupId>org.nuxeo.ecm.distribution</groupId>
+				<artifactId>nuxeo-distribution-cap</artifactId>
+				<version>${nuxeo.version}</version>
+				<type>pom</type>
+			</dependency>
 
-            <dependency>
-                <groupId>org.nuxeo.ecm.distribution</groupId>
-                <artifactId>nuxeo-distribution-cap</artifactId>
-                <version>${nuxeo.cap.distribution.version}</version>
-                <type>pom</type>
-            </dependency>
-            
 			<dependency>
 				<groupId>opentoutatice-ecm.platform</groupId>
 				<artifactId>opentoutatice-ecm-platform-core</artifactId>
-				<version>${ottc.version}</version>
+				<version>${nuxeo.opentoutatice.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>opentoutatice-ecm.platform</groupId>
+				<artifactId>opentoutatice-ecm-platform-core</artifactId>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -49,16 +47,16 @@
 	<build>
 		<plugins>
 			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.2.1</version>
-                <configuration>
-                    <tagBase>http://projet.toutatice.fr/repos/toutatice-ecm/opentoutatice-addons/opentoutatice-elasticsearch-customizer/tags</tagBase>
-                    <releaseProfiles>unpack,pack</releaseProfiles>
-                    <preparationGoals>clean install</preparationGoals>
-                    <goals>deploy</goals>
-                    </configuration>
-            </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.2.1</version>
+				<configuration>
+					<tagBase>http://projet.toutatice.fr/repos/toutatice-ecm/opentoutatice-addons/opentoutatice-elasticsearch-customizer/tags</tagBase>
+					<releaseProfiles>unpack,pack</releaseProfiles>
+					<preparationGoals>clean install</preparationGoals>
+					<goals>deploy</goals>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -68,8 +66,8 @@
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
-			</plugin> 
-		</plugins>			
+			</plugin>
+		</plugins>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -96,6 +94,6 @@
 			<url>http://projet.toutatice.fr/nexus/content/repositories/toutatice-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-	
+
 </project>
 
