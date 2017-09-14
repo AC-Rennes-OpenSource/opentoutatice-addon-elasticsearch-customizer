@@ -53,8 +53,8 @@ public class DefaultCustomJsonESWriter extends AbstractCustomJsonESWriter {
     protected void writeLockInfos(JsonGenerator jg, DocumentModel doc) throws JsonGenerationException, IOException {
         Lock lock = doc.getLockInfo();
         if (lock != null) {
-            jg.writeStringField("ottc:lockOwner", lock.getOwner());
-            jg.writeStringField("ottc:lockCreated", ISODateTimeFormat.dateTime().print(new DateTime(lock.getCreated())));
+            jg.writeStringField("ttc:lockOwner", lock.getOwner());
+            jg.writeStringField("ttc:lockCreated", ISODateTimeFormat.dateTime().print(new DateTime(lock.getCreated())));
         }
     }
 
