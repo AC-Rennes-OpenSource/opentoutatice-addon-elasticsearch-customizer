@@ -7,6 +7,7 @@ package fr.toutatice.ecm.es.customizer.registry;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -55,7 +56,7 @@ public class ESCustomizersServiceRegistry extends DefaultComponent {
     }
 
     @Override
-    public void activate(ComponentContext context) throws Exception {
+    public void activate(ComponentContext context) {
         super.activate(context);
         writers = new LinkedList<ICustomJsonESWriter>();
         listeners = new LinkedList<ICustomESListener>();
@@ -63,14 +64,18 @@ public class ESCustomizersServiceRegistry extends DefaultComponent {
 	
 	@Override
 	public void registerContribution(Object contribution,
-			String extensionPoint, ComponentInstance contributor)
-			throws Exception {
+			String extensionPoint, ComponentInstance contributor) {
 		
 		if(WRITERS_EXT_POINT.equals(extensionPoint)){
 			JsonESWriterDescriptor desc = (JsonESWriterDescriptor) contribution;
 			if(desc.isEnabled()){
 				String className = desc.getClazz();
-				ICustomJsonESWriter clazzInstance = (ICustomJsonESWriter) Class.forName(className).newInstance();
+                ICustomJsonESWriter clazzInstance;
+                try {
+                    clazzInstance = (ICustomJsonESWriter) Class.forName(className).newInstance();
+                } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                    throw new NuxeoException(e);
+                }
 				int order = desc.getOrder();
 				writers.add(order, clazzInstance);
 			}
@@ -78,7 +83,12 @@ public class ESCustomizersServiceRegistry extends DefaultComponent {
 		    ESListenerDescriptor desc = (ESListenerDescriptor) contribution;
 		    if(desc.isEnabled()){
 		        String className = desc.getClazz();
-		        ICustomESListener clazzInstance = (ICustomESListener) Class.forName(className).newInstance();
+                ICustomESListener clazzInstance;
+                try {
+                    clazzInstance = (ICustomESListener) Class.forName(className).newInstance();
+                } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                    throw new NuxeoException(e);
+                }
 		        int order = desc.getOrder();
 		        listeners.add(order, clazzInstance);
 		    }
