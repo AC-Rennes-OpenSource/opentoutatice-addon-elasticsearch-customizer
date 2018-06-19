@@ -12,7 +12,7 @@
 	<artifactId>opentoutatice-addon-elasticsearch-customizer-marketplace</artifactId>
 	<packaging>zip</packaging>
 	<name>elasticsearch customizer plugin - marketplace</name>
-
+<!-- 
 	<dependencies>
         <dependency>
             <groupId>org.nuxeo.ecm.distribution</groupId>
@@ -20,7 +20,7 @@
             <type>pom</type>
         </dependency>
     </dependencies>
-	
+	 -->
 	<build>
 		<plugins>
 			<plugin>

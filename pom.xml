@@ -12,12 +12,13 @@
 
 	<properties>
 		<nuxeo.version>8.10-HF28</nuxeo.version>
+		<nuxeo.distribution.version>8.10</nuxeo.distribution.version>
 		<nuxeo.opentoutatice.version>5.0-SNAPSHOT</nuxeo.opentoutatice.version>
 	</properties>
 
 	<modules>
 		<module>opentoutatice-addon-elasticsearch-customizer-ecm</module>
-		<!-- <module>opentoutatice-addon-elasticsearch-customizer-marketplace</module> -->
+		<module>opentoutatice-addon-elasticsearch-customizer-marketplace</module>
 	</modules>
 
 	<dependencyManagement>
