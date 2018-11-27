@@ -14,6 +14,7 @@
     <extension target="fr.toutatice.ecm.es.customizer.registry.ESCustomizersServiceRegistry"
         point="writers">
         <writer class="fr.toutatice.ecm.es.customizer.writers.impl.DefaultCustomJsonESWriter" />
+        <writer class="fr.toutatice.ecm.es.customizer.writers.impl.UserProfileWriter" />
     </extension>
 
 </component>
