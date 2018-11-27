@@ -64,8 +64,8 @@ public class DefaultCustomJsonESWriter extends AbstractCustomJsonESWriter {
     protected void writeLockInfos(JsonGenerator jg, DocumentModel doc) throws JsonGenerationException, IOException {
         Lock lock = doc.getLockInfo();
         if (lock != null) {
-            jg.writeStringField("ottc:lockOwner", lock.getOwner());
-            jg.writeStringField("ottc:lockCreated", ISODateTimeFormat.dateTime().print(new DateTime(lock.getCreated())));
+            jg.writeStringField("ttc:lockOwner", lock.getOwner());
+            jg.writeStringField("ttc:lockCreated", ISODateTimeFormat.dateTime().print(new DateTime(lock.getCreated())));
         }
     }
     
@@ -92,11 +92,11 @@ public class DefaultCustomJsonESWriter extends AbstractCustomJsonESWriter {
 		}
 		
 		if(rootSpace != null) {
-            jg.writeStringField("ottc:spaceUuid", rootSpace.getId());
-            jg.writeStringField("ottc:spaceTitle", rootSpace.getTitle());
-            jg.writeStringField("ottc:spaceType", rootSpace.getType());
+            jg.writeStringField("ttc:spaceUuid", rootSpace.getId());
+            jg.writeStringField("ttc:spaceTitle", rootSpace.getTitle());
+            jg.writeStringField("ttc:spaceType", rootSpace.getType());
             if(rootSpace.hasSchema("webcontainer")) {
-            	jg.writeStringField("ottc:spaceLdapId", rootSpace.getPropertyValue("webc:url").toString());
+            	jg.writeStringField("ttc:spaceLdapId", rootSpace.getPropertyValue("webc:url").toString());
             }
 
 		}
