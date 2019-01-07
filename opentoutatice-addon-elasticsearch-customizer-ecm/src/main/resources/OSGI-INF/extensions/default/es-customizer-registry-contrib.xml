@@ -9,6 +9,8 @@
     <extension target="fr.toutatice.ecm.es.customizer.registry.ESCustomizersServiceRegistry"
         point="listeners">
         <listener class="fr.toutatice.ecm.es.customizer.listeners.impl.DefaultCustomESListener" />
+        <listener class="fr.toutatice.ecm.es.customizer.listeners.impl.SpaceTitleChangeListener" />
+        
     </extension>
     
     <extension target="fr.toutatice.ecm.es.customizer.registry.ESCustomizersServiceRegistry"

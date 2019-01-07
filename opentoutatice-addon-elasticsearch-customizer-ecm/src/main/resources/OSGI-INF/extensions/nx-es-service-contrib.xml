@@ -21,7 +21,12 @@
 		<listener name="elasticSearchInlineListener" async="false"
 			enabled="${elasticsearch.enabled:=true}" postCommit="false" priority="500"
 			class="fr.toutatice.ecm.es.customizer.nx.listener.ESInlineListenerCustomizer">
-			<event>beforeDocumentModification</event>
+			
+			
+			<!--see #1934
+			 <event>beforeDocumentModification</event> -->
+			<event>documentModified</event>
+			
 		    <event>documentCreated</event>
 		    <event>documentCreatedByCopy</event>
 		    <event>documentMoved</event>
@@ -39,9 +44,21 @@
 		    <event>childrenOrderChanged</event>
 			<!-- Test on comments -->
 			<!-- <event>commentAdded</event>
-			<event>commentRemoved</event> --> 
+			<event>commentRemoved</event> -->
+			 
 		</listener>
 
 	</extension>
+	
+	<extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
+		point="listener">
+
+		<listener name="detectTitleModification" async="false"
+			enabled="${elasticsearch.enabled:=true}" postCommit="false" priority="500"
+			class="fr.toutatice.ecm.es.customizer.nx.listener.TitleModificationListener">
+			<event>beforeDocumentModification</event>
+		</listener>
+
+	</extension>	
 
 </component>
