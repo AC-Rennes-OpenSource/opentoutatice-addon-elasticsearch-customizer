@@ -23,8 +23,8 @@
 			class="fr.toutatice.ecm.es.customizer.nx.listener.ESInlineListenerCustomizer">
 			
 			
-			<!--see #1934
-			 <event>beforeDocumentModification</event> -->
+			<!--see #1934 -->
+			 <event>beforeDocumentModification</event> 
 			<event>documentModified</event>
 			
 		    <event>documentCreated</event>
