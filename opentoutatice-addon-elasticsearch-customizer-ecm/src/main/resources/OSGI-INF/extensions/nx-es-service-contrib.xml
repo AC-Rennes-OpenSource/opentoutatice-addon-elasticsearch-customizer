@@ -25,7 +25,7 @@
 			
 			<!--see #1934 -->
 			 <event>beforeDocumentModification</event> 
-			<event>documentModified</event>
+			<!-- <event>documentModified</event> -->
 			
 		    <event>documentCreated</event>
 		    <event>documentCreatedByCopy</event>
@@ -49,7 +49,7 @@
 		</listener>
 
 	</extension>
-	
+	<!-- 
 	<extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
 		point="listener">
 
@@ -60,5 +60,7 @@
 		</listener>
 
 	</extension>	
-
+ 	-->
+ 	
+ 	
 </component>
