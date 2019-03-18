@@ -11,11 +11,14 @@ import java.util.Map;
 import java.util.Set;
 
 import org.codehaus.jackson.JsonGenerator;
+import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.security.ACE;
 import org.nuxeo.ecm.core.api.security.ACL;
+import org.nuxeo.ecm.directory.Session;
 import org.nuxeo.ecm.directory.api.DirectoryService;
 import org.nuxeo.ecm.directory.ldap.LDAPDirectory;
+import org.nuxeo.ecm.directory.ldap.LDAPSession;
 import org.nuxeo.runtime.api.Framework;
 
 import fr.toutatice.ecm.es.customizer.writers.api.AbstractCustomJsonESWriter;
@@ -30,6 +33,8 @@ import fr.toutatice.ecm.es.customizer.writers.api.AbstractCustomJsonESWriter;
  *	
  */
 public class UserProfileWriter extends AbstractCustomJsonESWriter {
+
+	private LDAPSession session;
 
 	/* (non-Javadoc)
 	 * @see fr.toutatice.ecm.es.customizer.writers.api.ICustomJsonESWriter#accept(org.nuxeo.ecm.core.api.DocumentModel)
@@ -57,10 +62,9 @@ public class UserProfileWriter extends AbstractCustomJsonESWriter {
 		}
 		
 		if(login != null) {
-			DirectoryService service = Framework.getService(DirectoryService.class);
-			LDAPDirectory directory = (LDAPDirectory) service.getDirectory("userLdapDirectory");
 			
-			DocumentModel entry = directory.getSession().getEntry(login);
+			DocumentModel entry = getLdapEntry(login);
+			
 			if(entry != null) {
 
 				Serializable firstName = entry.getPropertyValue("firstName");
@@ -96,6 +100,38 @@ public class UserProfileWriter extends AbstractCustomJsonESWriter {
 			}
 		}
 		
+	}
+
+	/**
+	 * This method get a fresh user from ldap, recycling a dedicated connexion to ldap.
+	 * If ldap client is unbinded, try to create a new one.
+	 * 
+	 * @param login str
+	 * @return document ldap entry
+	 */
+	private DocumentModel getLdapEntry(String login) {
+		DocumentModel entry = null;
+		if(session != null) {
+			try {
+				entry = session.getEntryFromSource(login, false);
+			}
+			catch(ClientException e) {
+				session = null;
+			}
+		}
+		
+		if(session == null) {
+			
+			DirectoryService service = Framework.getService(DirectoryService.class);
+			LDAPDirectory directory = (LDAPDirectory) service.getDirectory("userLdapDirectory");
+			
+			session = (LDAPSession) directory.getSession();
+			
+			entry = session.getEntryFromSource(login,false);
+
+		}
+		
+		return entry;
 	}
 
 }
