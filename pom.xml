@@ -62,7 +62,18 @@
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
-			</plugin> 
+			</plugin>
+			
+			<!-- Disable strict javadoc checking since java8 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<additionalOptions>
+						<additionalOption>-Xdoclint:none</additionalOption>
+					</additionalOptions>
+				</configuration>
+			</plugin>			
 		</plugins>			
 		<pluginManagement>
 			<plugins>
