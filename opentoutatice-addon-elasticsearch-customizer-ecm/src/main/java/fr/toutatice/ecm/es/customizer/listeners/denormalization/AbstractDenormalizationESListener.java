@@ -46,13 +46,17 @@ public abstract class AbstractDenormalizationESListener implements ICustomESList
      */
     protected abstract boolean needToReIndex(DocumentModel sourceDocument, String eventId);
 
+    protected boolean needToReIndex(DocumentEventContext context, String eventId) {
+    	return needToReIndex(context.getSourceDocument(), eventId);
+    }
     /**
      * {@inheritDoc}
      */
     @Override
     public void customStackCommands(DocumentEventContext docCtx, String eventId) {
-        DocumentModel sourceDocument = docCtx.getSourceDocument();
-        if (needToReIndex(sourceDocument, eventId)) {
+
+        if (needToReIndex(docCtx, eventId)) {
+        	DocumentModel sourceDocument = docCtx.getSourceDocument();
             CoreSession session = sourceDocument.getCoreSession();
             stackCommands(session, sourceDocument, eventId);
         }

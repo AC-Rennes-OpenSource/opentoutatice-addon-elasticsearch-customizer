@@ -5,7 +5,7 @@
     <parent>
         <groupId>opentoutatice-ecm.elasticsearch-customizer</groupId>
 	    <artifactId>opentoutatice-elasticsearch-customizer-parent</artifactId>
-	    <version>4.7</version>
+	    <version>4.7-SNAPSHOT</version>
     </parent>
     
 	<artifactId>opentoutatice-addon-elasticsearch-customizer-ecm</artifactId>
@@ -27,21 +27,6 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<configuration>
-					<additionalProjectnatures>
-						<projectnature>org.nuxeo.ide.NuxeoNature</projectnature>
-					</additionalProjectnatures>
-					<classpathContainers>
-						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
-						<classpathContainer>org.nuxeo.ide.SDK_CONTAINER</classpathContainer>
-						<classpathContainer>org.nuxeo.ide.SDK_TEST_CONTAINER</classpathContainer>
-						<classpathContainer>org.nuxeo.ide.SDK_USERLIB_CONTAINER</classpathContainer>
-					</classpathContainers>
 				</configuration>
 			</plugin>
 			<plugin>
