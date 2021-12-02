@@ -15,7 +15,6 @@ import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.security.ACE;
 import org.nuxeo.ecm.core.api.security.ACL;
-import org.nuxeo.ecm.directory.Session;
 import org.nuxeo.ecm.directory.api.DirectoryService;
 import org.nuxeo.ecm.directory.ldap.LDAPDirectory;
 import org.nuxeo.ecm.directory.ldap.LDAPSession;
@@ -67,16 +66,26 @@ public class UserProfileWriter extends AbstractCustomJsonESWriter {
 			
 			if(entry != null) {
 
-				Serializable firstName = entry.getPropertyValue("firstName");
-				Serializable lastName = entry.getPropertyValue("lastName");
 				
-				// Compute display Name
-				String displayName = null;
-				if(firstName != null && lastName != null) {
-					displayName = firstName.toString() + " " + lastName.toString();
+				Serializable displayname = entry.getPropertyValue("displayName");
+				if(displayname != null) {
+					jg.writeStringField("dc:title", displayname.toString());
+
 				}
-				else if(lastName != null) {
-					displayName = lastName.toString();
+				else {
+					jg.writeStringField("dc:title", login);
+				}
+				
+				
+				Serializable mail = entry.getPropertyValue("email");
+				if(mail != null) {
+					jg.writeStringField("ttc_userprofile:mail", mail.toString());
+
+				}
+				Serializable mail2 = entry.getPropertyValue("emailaca");
+				if(mail2 != null) {
+					jg.writeStringField("ttc_userprofile:mailaca", mail2.toString());
+
 				}
 				
 				// Compute workspace lists
@@ -90,7 +99,7 @@ public class UserProfileWriter extends AbstractCustomJsonESWriter {
 				}
 				
 				
-				jg.writeStringField("dc:title", displayName);
+				
 				jg.writeStringField("ttc_userprofile:login", login);
 				jg.writeArrayFieldStart("ttc_userprofile:workspaces");
 				for(String workspace : workspaces) {
