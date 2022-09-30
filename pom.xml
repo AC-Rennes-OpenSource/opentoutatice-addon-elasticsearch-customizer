@@ -8,12 +8,11 @@
 	<packaging>pom</packaging>
 	<name>elasticsearch customizer plugin - parent</name>
 	<description>Addon elasticsearch customizer service</description>
-	<version>RAB-4.7.19-RC01-SNAPSHOT</version>
+	<version>RAB-4.7.18</version>
 
 	<properties>
 		<nuxeo.version>RAB-6.1.5</nuxeo.version>
-		<!-- <nuxeo.cap.version>RAB-6.1.5</nuxeo.cap.version> -->
-		<opentoutatice.version>RAB-4.7.44</opentoutatice.version>
+		<opentoutatice.version>RAB-4.7.45</opentoutatice.version>
 	</properties>
 
 	<modules>
