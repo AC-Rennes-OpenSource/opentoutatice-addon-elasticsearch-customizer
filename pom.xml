@@ -1,101 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>opentoutatice-ecm.elasticsearch-customizer</groupId>
-	<artifactId>opentoutatice-elasticsearch-customizer-parent</artifactId>
-	<packaging>pom</packaging>
-	<name>elasticsearch customizer plugin - parent</name>
-	<description>Addon elasticsearch customizer service</description>
-	<version>RAB-4.7.18</version>
+    <groupId>opentoutatice-ecm.elasticsearch-customizer</groupId>
+    <artifactId>opentoutatice-elasticsearch-customizer-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>4.7.19-RAB</version>
 
-	<properties>
-		<nuxeo.version>RAB-6.1.5</nuxeo.version>
-		<opentoutatice.version>RAB-4.7.45</opentoutatice.version>
-	</properties>
+    <name>elasticsearch customizer plugin - parent</name>
+    <description>Addon elasticsearch customizer service</description>
 
-	<modules>
-		<module>opentoutatice-addon-elasticsearch-customizer-ecm</module>
-		<!-- <module>opentoutatice-addon-elasticsearch-customizer-marketplace</module> -->
-	</modules>
+    <properties>
+        <nuxeo.version>RAB-6.1.5</nuxeo.version>
+        <opentoutatice.version>RAB-4.7.45</opentoutatice.version>
+    </properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.nuxeo.ecm.distribution</groupId>
-				<artifactId>nuxeo-distribution-cap</artifactId>
-				<version>${nuxeo.version}</version>
-				<type>pom</type>
-			</dependency>
+    <modules>
+        <module>opentoutatice-addon-elasticsearch-customizer-ecm</module>
+        <!-- <module>opentoutatice-addon-elasticsearch-customizer-marketplace</module> -->
+    </modules>
 
-			<dependency>
-				<groupId>opentoutatice-ecm.platform</groupId>
-				<artifactId>opentoutatice-ecm-platform-core</artifactId>
-				<version>${opentoutatice.version}</version>
-			</dependency>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.nuxeo.ecm.distribution</groupId>
+                <artifactId>nuxeo-distribution-cap</artifactId>
+                <version>${nuxeo.version}</version>
+                <type>pom</type>
+            </dependency>
 
-		</dependencies>
-	</dependencyManagement>
+            <dependency>
+                <groupId>opentoutatice-ecm.platform</groupId>
+                <artifactId>opentoutatice-ecm-platform-core</artifactId>
+                <version>${opentoutatice.version}</version>
+            </dependency>
 
-	<build>
-		<plugins>
-			<plugin>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.2.1</version>
             </plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<encoding>UTF-8</encoding>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-			
-			<!-- Disable strict javadoc checking since java8 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<additionalOptions>
-						<additionalOption>-Xdoclint:none</additionalOption>
-					</additionalOptions>
-				</configuration>
-			</plugin>			
-		</plugins>			
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.nuxeo.build</groupId>
-					<artifactId>ant-assembly-maven-plugin</artifactId>
-					<version>2.0.1</version>
-					<extensions>true</extensions>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
 
-	<scm>
-		<url>https://github.com/AC-Rennes-OpenSource/opentoutatice-addon-elasticsearch-customizer</url>
-		<connection>scm:git:https://github.com/AC-Rennes-OpenSource/opentoutatice-addon-elasticsearch-customizer.git</connection>
-		<developerConnection>scm:git:https://github.com/AC-Rennes-OpenSource/opentoutatice-addon-elasticsearch-customizer.git</developerConnection>
-		<tag>HEAD</tag>
-	</scm>
+            <!-- Disable strict javadoc checking since java8 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <additionalOptions>
+                        <additionalOption>-Xdoclint:none</additionalOption>
+                    </additionalOptions>
+                </configuration>
+            </plugin>
 
-        <distributionManagement>
-                <repository>
-                        <id>${releaseRepoId}</id>
-                        <url>${releaseRepoUrl}</url>
-                </repository>
-                <snapshotRepository>
-                        <id>${snapshotRepoId}</id>
-                        <url>${snapshotRepoUrl}</url>
-                </snapshotRepository>
-        </distributionManagement>
+            <!--GitFlow-->
+            <plugin>
+                <groupId>com.amashchenko.maven.plugin</groupId>
+                <artifactId>gitflow-maven-plugin</artifactId>
+                <version>1.21.0</version>
+                <configuration>
+                    <gitFlowConfig>
+                        <productionBranch>master-RAB</productionBranch>
+                        <developmentBranch>develop-RAB</developmentBranch>
+                        <featureBranchPrefix>feature/</featureBranchPrefix>
+                        <releaseBranchPrefix>release/</releaseBranchPrefix>
+                        <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
+                        <supportBranchPrefix>support/</supportBranchPrefix>
+                        <versionTagPrefix/>
+                        <origin>origin</origin>
+                    </gitFlowConfig>
+
+                    <commitMessages>
+                        <releaseStartMessage>🔖 Version @{version}</releaseStartMessage>
+                        <releaseFinishMessage>🔖 Version @{version}</releaseFinishMessage>
+                        <versionUpdateMessage>🔖 Version @{version}</versionUpdateMessage>
+                    </commitMessages>
+
+                    <digitsOnlyDevVersion>false</digitsOnlyDevVersion>
+                    <updateVersionDigitToIncrement>3</updateVersionDigitToIncrement>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.nuxeo.build</groupId>
+                    <artifactId>ant-assembly-maven-plugin</artifactId>
+                    <version>2.0.1</version>
+                    <extensions>true</extensions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <scm>
+        <url>https://github.com/AC-Rennes-OpenSource/opentoutatice-addon-elasticsearch-customizer</url>
+        <connection>scm:git:https://github.com/AC-Rennes-OpenSource/opentoutatice-addon-elasticsearch-customizer.git</connection>
+        <developerConnection>scm:git:https://github.com/AC-Rennes-OpenSource/opentoutatice-addon-elasticsearch-customizer.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>${releaseRepoId}</id>
+            <!--suppress UnresolvedMavenProperty -->
+            <url>${releaseRepoUrl}</url>
+        </repository>
+        <snapshotRepository>
+            <id>${snapshotRepoId}</id>
+            <!--suppress UnresolvedMavenProperty -->
+            <url>${snapshotRepoUrl}</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
 
