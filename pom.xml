@@ -7,7 +7,7 @@
     <groupId>opentoutatice-ecm.elasticsearch-customizer</groupId>
     <artifactId>opentoutatice-elasticsearch-customizer-parent</artifactId>
     <packaging>pom</packaging>
-    <version>RAB-4.7.19-SNAPSHOT</version>
+    <version>4.7.19-RAB-SNAPSHOT</version>
 
     <name>elasticsearch customizer plugin - parent</name>
     <description>Addon elasticsearch customizer service</description>
